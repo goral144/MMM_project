@@ -1,48 +1,39 @@
 ﻿from tkinter import *
 from tkinter import messagebox
 import math
-
+import matplotlib
 
 def click_action():
     if vmasa.get().isnumeric() == TRUE and vopor_powietrza.get().isnumeric() == TRUE and vkat_wystrzalu.get().isnumeric() == TRUE and vpredkosc_pocz.get().isnumeric() == TRUE :
         m = float (vmasa.get())
-        k = float (vopor_powietrza.get())
+        b = float (vopor_powietrza.get())
         a = float (vkat_wystrzalu.get())
-        rad = float ((k/180)*math.pi)
+        rad = float ((a/180)*math.pi)
         v = float (vpredkosc_pocz.get())
 
 
         """OBLICZENIA"""
-        b = float (k/m)
+        k = float (b/m)
         Vox = float (v*math.cos(rad))
         g = float (9.81)
         Voy = float (v*math.sin(rad))
         x_t = float (0)
         y_t = float (0)
         t = int (0)
-
+        
         while y_t >= 0:
-            """os_x = t
+            os_x1 = t
             os_y1 = x_t
-            os_y2 = x_t"""
-            x_t = (Vox/b)*(1 - math.exp(-b*t))
-            y_t = (((Voy/b)+(g/b))*(1 - math.exp(-b*t))) - ((g*t)/b)
-            print (t)
-            print (y_t)
+            x_t = (Vox/k)*(1 - math.exp(-k*t))
+            y_t = (((Voy/k)+(g/b))*(1 - math.exp(-k*t))) - ((g*t)/k)
+            print(t)
+            print(y_t)
             print(x_t)
             t = t + 1
-
+            
             
             
         print("KONIEC !!")
-
-
-        print(m)
-        print(k)
-        print(a)
-        print(rad)
-        print(v)
-        print("Wow!")
     else:
         vmasa.delete(0, END)
         vmasa.insert(END, '0')
