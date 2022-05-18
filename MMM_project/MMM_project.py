@@ -4,12 +4,22 @@ import math
 
 
 def click_action():
-    if vmasa.get().isnumeric() == TRUE and vopor_powietrza.get().isnumeric() == TRUE and vkat_wystrzalu.get().isnumeric() == TRUE and vpredkosc_pocz.get().isnumeric() == TRUE :
-        m = float (vmasa.get())
-        k = float (vopor_powietrza.get())
-        a = float (vkat_wystrzalu.get())
-        rad = float ((k/180)*math.pi)
-        v = float (vpredkosc_pocz.get())
+    # if vmasa.get().isnumeric() == TRUE and vopor_powietrza.get().isnumeric() == TRUE and vkat_wystrzalu.get().isnumeric() == TRUE and vpredkosc_pocz.get().isnumeric() == TRUE :
+    blad = FALSE
+    try: m = float (vmasa.get())
+    except ValueError: blad = TRUE
+    try: k = float (vopor_powietrza.get())
+    except ValueError: blad = TRUE
+    try: a = float (vkat_wystrzalu.get())
+    except ValueError: blad = TRUE
+    try: rad = float ((k/180)*math.pi)
+    except ValueError: blad = TRUE
+    try: v = float (vpredkosc_pocz.get())
+    except ValueError: blad = TRUE
+    
+    if blad == FALSE:
+     
+    
 
 
         """OBLICZENIA"""
@@ -43,6 +53,7 @@ def click_action():
         print(rad)
         print(v)
         print("Wow!")
+        
     else:
         vmasa.delete(0, END)
         vmasa.insert(END, '0')
