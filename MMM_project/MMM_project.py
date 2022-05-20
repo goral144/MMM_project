@@ -3,8 +3,6 @@ from tkinter import *
 from tkinter import messagebox
 import math
 import matplotlib.pyplot as plt
-import matplotlib.pyplot as plt1
-import matplotlib.pyplot as plt2
 from array import *
 
 def click_action():
@@ -13,9 +11,9 @@ def click_action():
         b = float (vopor_powietrza.get())
         a = float (vkat_wystrzalu.get())
         v = float (vpredkosc_pocz.get())
-        t_tab = array('f',[0,0.1])
-        x_tab = array('f',[0,0.1])
-        y_tab = array('f',[0,0.1])
+        t_tab = array('f',[])
+        x_tab = array('f',[])
+        y_tab = array('f',[])
         x_max = float(0)
         y_max =float(0)
         x_t = float (0)
@@ -47,10 +45,12 @@ def click_action():
             t_max = t
             t = t + 0.01
 
-        i = int(t*100) 
+        """i = int(t*100) 
         x_tab.insert(i,x_max)
-        y_tab.insert(i,0)
-
+        y_tab.insert(i,0)"""
+        t_tab.remove(t_tab[len(t_tab)-1])
+        y_tab.remove(y_tab[len(y_tab)-1])
+        x_tab.remove(x_tab[len(x_tab)-1])
         print("Y max = ")
         print(y_max)
         print("Czas do osiągnięcia Y max =")
@@ -59,13 +59,31 @@ def click_action():
         print(x_max)
         print("T max = ")
         print(t_max)
-        plt.plot(x_tab,y_tab,color='tab:red')
+        
+        plt.subplot(3,1,1)
+        plt.plot(t_tab,x_tab,color='tab:red')
+        plt.xlim([0,t+0.1])
+        plt.ylim([0,x_max+0.1])
+        plt.title('WYKRES x(t)')
+        """plt.plot(x_tab,y_tab,color='tab:red')
         plt.xlim([0,x_t+0.01])
         plt.ylim([0,y_max+0.01])
-        plt.title('WYKRES y(x)')
-        plt.show()
+        plt.title('WYKRES y(x)')"""
+        plt.subplot(3,1,2)
+        plt.plot(t_tab,y_tab,color='tab:red')
+        plt.xlim([0,t+0.1])
+        plt.ylim([0,y_max+0.1])
+        plt.title('WYKRES y(t)')
 
-        print("KONIEC LOT!!")
+        plt.subplot(3,1,3)
+        plt.plot(x_tab,y_tab,color='tab:red')
+        plt.xlim([0,x_max+0.1])
+        plt.ylim([0,y_max+0.1])
+        plt.title('\nWYKRES y(x)')
+        
+        plt.tight_layout
+
+        plt.show()
     else:
         vmasa.delete(0, END)
         vmasa.insert(END, '0')
@@ -77,23 +95,22 @@ def click_action():
         vpredkosc_pocz.insert(END, '0')
         messagebox.showerror('Informacja', 'Źle wprowadzone dane')
         print("KONIEC, ZŁE DANE!")
-    
+"""   
 def click_action1():
     if vmasa.get().isnumeric() == TRUE and vopor_powietrza.get().isnumeric() == TRUE and vkat_wystrzalu.get().isnumeric() == TRUE and vpredkosc_pocz.get().isnumeric() == TRUE :
         m = float (vmasa.get())
         b = float (vopor_powietrza.get())
         a = float (vkat_wystrzalu.get())
         v = float (vpredkosc_pocz.get())
-        t_tab = array('f',[0,0.1])
-        x_tab = array('f',[0,0.1])
-        y_tab = array('f',[0,0.1])
+        t_tab = array('f',[0,0,0,0])
+        x_tab = array('f',[0,0,0,0])
+        y_tab = array('f',[0,0,0,0])
         x_max = float(0)
         y_max =float(0)
         x_t = float (0)
         y_t = float (0)
         t = float (0)
 
-        """OBLICZENIA"""
         
         rad = float ((a/180)*math.pi)
         k = float (b/m)
@@ -142,16 +159,15 @@ def click_action2():
         b = float (vopor_powietrza.get())
         a = float (vkat_wystrzalu.get())
         v = float (vpredkosc_pocz.get())
-        t_tab = array('f',[0,0.1])
-        x_tab = array('f',[0,0.1])
-        y_tab = array('f',[0,0.1])
+        t_tab = array('f',[0,0,0,0])
+        x_tab = array('f',[0,0,0,0])
+        y_tab = array('f',[0,0,0,0])
         x_max = float(0)
         y_max =float(0)
         x_t = float (0)
         y_t = float (0)
         t = float (0)
 
-        """OBLICZENIA"""
         
         rad = float ((a/180)*math.pi)
         k = float (b/m)
@@ -171,7 +187,7 @@ def click_action2():
             elif  x_t>x_max:
                 x_max = x_t
             t = t + 0.01
-
+    
         i = int(t*100) 
         y_tab.insert(i,0)
         t_tab.insert(i,t)
@@ -193,7 +209,7 @@ def click_action2():
         vpredkosc_pocz.insert(END, '0')
         messagebox.showerror('Informacja', 'Źle wprowadzone dane')
         print("KONIEC ZŁE DANE!")
-
+"""
 
 root = Tk()
 root.title("MMM")
@@ -226,8 +242,8 @@ vpredkosc_pocz.insert(END, '0')
 vpredkosc_pocz.place(x=610,y=100,height=25,width=180)
 
 Button(root, text="LOT POCISKU", font=40, width=10, command=click_action).place(x=325,y=150,height=50,width=150)
-Button(root, text="RZUT OŚ X", font=40, width=10, command=click_action1).place(x=150,y=150,height=50,width=150)
-Button(root, text="RZUT OŚ Y", font=40, width=10, command=click_action2).place(x=500,y=150,height=50,width=150)
+"""Button(root, text="RZUT OŚ X", font=40, width=10, command=click_action1).place(x=150,y=150,height=50,width=150)
+Button(root, text="RZUT OŚ Y", font=40, width=10, command=click_action2).place(x=500,y=150,height=50,width=150)"""
 
 
 
