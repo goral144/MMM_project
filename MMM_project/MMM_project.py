@@ -5,6 +5,8 @@ import math
 import matplotlib.pyplot as plt
 from array import *
 
+from numpy import size
+
 def click_action():
     if vmasa.get().isnumeric() == TRUE and vopor_powietrza.get().isnumeric() == TRUE and vkat_wystrzalu.get().isnumeric() == TRUE and vpredkosc_pocz.get().isnumeric() == TRUE :
         m = float (vmasa.get())
@@ -45,9 +47,6 @@ def click_action():
             t_max = t
             t = t + 0.01
 
-        """i = int(t*100) 
-        x_tab.insert(i,x_max)
-        y_tab.insert(i,0)"""
         t_tab.remove(t_tab[len(t_tab)-1])
         y_tab.remove(y_tab[len(y_tab)-1])
         x_tab.remove(x_tab[len(x_tab)-1])
@@ -60,15 +59,14 @@ def click_action():
         print("T max = ")
         print(t_max)
         
+
+        plt.clf()
         plt.subplot(3,1,1)
         plt.plot(t_tab,x_tab,color='tab:red')
         plt.xlim([0,t+0.1])
         plt.ylim([0,x_max+0.1])
         plt.title('1.WYKRES x(t)  2.WYKRES y(t)  3.WYKRES y(x)')
-        """plt.plot(x_tab,y_tab,color='tab:red')
-        plt.xlim([0,x_t+0.01])
-        plt.ylim([0,y_max+0.01])
-        plt.title('WYKRES y(x)')"""
+        
         plt.subplot(3,1,2)
         plt.plot(t_tab,y_tab,color='tab:red')
         plt.xlim([0,t+0.1])
@@ -83,6 +81,16 @@ def click_action():
         plt.tight_layout
 
         plt.show()
+
+        i = int ()
+        i = len(t_tab)
+        while i > 0:
+            t_tab.remove(t_tab[i])
+            y_tab.remove(y_tab[i])
+            x_tab.remove(x_tab[i])
+            i = i-1
+
+
     else:
         vmasa.delete(0, END)
         vmasa.insert(END, '0')
