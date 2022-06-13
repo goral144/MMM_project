@@ -8,7 +8,20 @@ from array import *
 from numpy import size
 
 def click_action():
-    if vmasa.get().isnumeric() == TRUE and vopor_powietrza.get().isnumeric() == TRUE and vkat_wystrzalu.get().isnumeric() == TRUE and vpredkosc_pocz.get().isnumeric() == TRUE :
+
+    blad = FALSE
+    try: m = float (vmasa.get())
+    except ValueError: blad = TRUE
+    try: k = float (vopor_powietrza.get())
+    except ValueError: blad = TRUE
+    try: a = float (vkat_wystrzalu.get())
+    except ValueError: blad = TRUE
+    try: rad = float ((k/180)*math.pi)
+    except ValueError: blad = TRUE
+    try: v = float (vpredkosc_pocz.get())
+    except ValueError: blad = TRUE
+
+    if blad == FALSE:    
         m = float (vmasa.get())
         b = float (vopor_powietrza.get())
         a = float (vkat_wystrzalu.get())
@@ -34,7 +47,7 @@ def click_action():
         
         while y_t >= 0:
             x_t = (Vox/k)*(1 - math.exp(-k*t))
-            y_t = (((Voy/k)+(g/b))*(1 - math.exp(-k*t))) - ((g*t)/k)
+            y_t = (((Voy/k)+(g/k))*(1 - math.exp(-k*t))) - ((g*t)/k)
             i = int(t*100)
             t_tab.insert(i,t)
             x_tab.insert(i,x_t)
@@ -63,19 +76,19 @@ def click_action():
         plt.clf()
         plt.subplot(3,1,1)
         plt.plot(t_tab,x_tab,color='tab:red')
-        plt.xlim([0,t+0.1])
-        plt.ylim([0,x_max+0.1])
+        plt.xlim([0,t+0.01])
+        plt.ylim([0,x_max+0.01])
         plt.title('1.WYKRES x(t)  2.WYKRES y(t)  3.WYKRES y(x)')
         
         plt.subplot(3,1,2)
         plt.plot(t_tab,y_tab,color='tab:red')
-        plt.xlim([0,t+0.1])
-        plt.ylim([0,y_max+0.1])
+        plt.xlim([0,t+0.01])
+        plt.ylim([0,y_max+0.01])
 
         plt.subplot(3,1,3)
         plt.plot(x_tab,y_tab,color='tab:red')
-        plt.xlim([0,x_max+0.1])
-        plt.ylim([0,y_max+0.1])
+        plt.xlim([0,x_max+0.01])
+        plt.ylim([0,y_max+0.01])
         plt.title('\n')
         
         plt.tight_layout
@@ -136,3 +149,5 @@ vpredkosc_pocz.place(x=610,y=110,height=25,width=180)
 Button(root, text="LOT POCISKU", font=40, width=10, command=click_action).place(x=325,y=150,height=50,width=150)
 
 root.mainloop()
+
+
